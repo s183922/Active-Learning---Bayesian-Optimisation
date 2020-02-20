@@ -11,37 +11,41 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import GPyOpt 
 
-n = 1000
+n = 100
 
-lattitude = np.linspace(9.5, 11,  n)
-longitude = np.linspace(55, 55.5, n)
+lattitude = (9.5, 11)
+longitude = (55, 55.5)
 
-domain = [{'name': 'X-coordinates', 'type': 'continous', 'domain': lattitude},
-          {'name': 'Y-coordinates', 'type': 'continous', 'domain': longitude}]
+domain = [{'name': 'Xcoordinates', 'type': 'continuous', 'domain': lattitude},
+          {'name': 'Ycoordinates', 'type': 'continuous', 'domain': longitude}]
 
 
+true_vals = np.linspace(0,100,100)
 
+# plt.plot(2*longitude**2/lattitude**2*200*np.sin(longitude*2))
 
 def objective_function(x):
     
     coordinates = x[0]
-    
-    
-    
-    
-    
-    
-    return true_vals[index]
+    print(coordinates)
+
+    obj = 2
+    return obj
 
 
 
 opt = GPyOpt.methods.BayesianOptimization(f = objective_function,   # function to optimize
                                               domain = domain,         # box-constrains of the problem
-                                              acquisition_type = 'EI' ,      # Select acquisition function MPI, EI, LCB
-                                             )
+                                              acquisition_type = 'EI'      # Select acquisition function MPI, EI, LCB
+                                              )
 
 opt.acquisition.exploration_weight = 2
 
-opt.run_optimization(max_iter = 15) 
+opt.run_optimization(max_iter = 10) 
 
 
+x_best = opt.X[np.argmin(opt.Y)]
+
+# print("The best parameters obtained: n_estimators=" + str(x_best[0]) + ", max_depth=" + str(x_best[1]) + ", max_features=" + str(
+#     x_best[2])  + ", criterion=" + str(
+#     x_best[3]))
