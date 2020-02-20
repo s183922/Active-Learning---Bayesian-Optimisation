@@ -11,21 +11,25 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import GPyOpt 
 
+n = 1000
+
+lattitude = np.linspace(9.5, 11,  n)
+longitude = np.linspace(55, 55.5, n)
+
+domain = [{'name': 'X-coordinates', 'type': 'continous', 'domain': lattitude},
+          {'name': 'Y-coordinates', 'type': 'continous', 'domain': longitude}]
 
 
-domain = [{'name': 'X-coordinates', 'type': 'continous', 'domain': 'unknown'},
-          {'name': 'Y-coordinates', 'type': 'continous', 'domain': 'unknown'}]
 
-
-true_vals = []
 
 def objective_function(x):
     
-    params = x[0]
+    coordinates = x[0]
     
     
     
-    index = 0
+    
+    
     
     return true_vals[index]
 
@@ -33,7 +37,11 @@ def objective_function(x):
 
 opt = GPyOpt.methods.BayesianOptimization(f = objective_function,   # function to optimize
                                               domain = domain,         # box-constrains of the problem
-                                              acquisition_type = 'LCB' ,      # Select acquisition function MPI, EI, LCB
+                                              acquisition_type = 'EI' ,      # Select acquisition function MPI, EI, LCB
                                              )
+
+opt.acquisition.exploration_weight = 2
+
+opt.run_optimization(max_iter = 15) 
 
 
