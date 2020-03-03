@@ -35,6 +35,8 @@ ee.Initialize()
 dem = ee.Image('USGS/SRTMGL1_003')
 
 
+
+
 ###########################
 true_vals = np.linspace(0,100,100)
 
