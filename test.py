@@ -11,10 +11,15 @@ import numpy as np
 import scipy.stats as scistat
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+import os
+import sys
+
+os.chdir(sys.path[0])
 
 # Read Data and initialise Top heights and corresponding coordinates.
-BO = pd.read_csv("Desktop\df_BO1.csv")
-Random = pd.read_csv("Desktop\df_random1.csv")
+
+BO = pd.read_csv("df_BO1.csv")
+Random = pd.read_csv("df_random1.csv")
 Keys = ["Alps", "Kaukasus", "Fyn / Germany", "Himmalaya"]
 tops = [4810, 4000, 168, 8848]
 top_coords = [np.array([6.865575, 45.832119]),  np.array([42.4392,43]), np.array([[10.725150,10.112292],[55.338056,54.207114]]), np.array([86.922623,27.986065])]
